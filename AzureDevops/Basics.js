@@ -145,4 +145,50 @@ jobs:
         path: playwright-report/
         retention-days: 30
 
+
+
+
+
+
+
+        run following cmds to setup local workspace to azure workspace
+
+objected - cc6a965c-e80a-4d78-8dc5-b3220faf566f
+Storage account - pwstrgrrde857
+
+1.az login
+
+
+2. $env:PLAYWRIGHT_SERVICE_URL="wss://eastus.api.playwright.microsoft.com/playwrightworkspaces/68cec135-967f-41a0-9c72-1be0d04c01c4/browsers"
+
+
+
+# 3. Get the resource ID and store it in a variable
+$storageId = az storage account show --name pwstrgrrde857 --resource-group rrd --query id -o tsv
+
+# 4. Run the role assignment using the variable
+az role assignment create `
+   --assignee "cc6a965c-e80a-4d78-8dc5-b3220faf566f" `
+   --role "Storage Blob Data Contributor" `
+   --scope \$storageId
+
+
+
+
+
+
+To get the service account 
+
+Subscription id - c411ae04-a2cc-4a2e-8f49-9e6473752c68
+
+az ad sp create-for-rbac --name "github-playwright" --role "Contributor" --scopes "/subscriptions/c411ae04-a2cc-4a2e-8f49-9e6473752c68/resourceGroups/RRD" --json-auth
+
+
+
+az role assignment create \
+--assignee "$(az ad sp list --display-name 'github-playwright' --query '[0].appId' -o tsv)" \
+--role "Storage Blob Data Contributor" \
+--scope "$(az storage account show --name pwstrgrrde857 --resource-group RRD --query id -o tsv)"
+
+
 */
