@@ -56,7 +56,9 @@ az role assignment create `
    9. add the origine : git remote add origin https://github.com/dhaneshrajedbm/PlaywrightWorkspace_Udemy.git
    10. git push -u origin master  : for first time code push and provide authentication
 
-*******Playwrite Github Actions and into to .yml file****************
+
+
+*******Playwrite Github Actions and configure .yml file to start excution in azure cloud when there is code push done in github****************
 
 goto officila wesite - https://playwright.dev/docs/ci-intro
 
@@ -64,7 +66,7 @@ when we integrete github with project workspace then in that ".github" folder is
 which by default contains the "plywright.yml" file ->
 
 on is the event that tell the when to trigger the job . in this case there is mention 'push' means
-when the code push happens to  main/master branch trigget the job
+when the code push happens to  main/master branch trigget the job means automatically start execution in the azure cloud
 
 job is nothing but the set of actions which we do when trigger job execution 
 
@@ -88,7 +90,7 @@ steps-
   - name : Azure Login
     uses: azure/login@v3
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.AZURECREDENTIALS }}
 
 
 # also define cmd in yml file for azure cloud execution - npx playwright test --config=playwright.service.config.ts --workers=4
@@ -96,15 +98,18 @@ steps-
 # also we have set below  browser endpoint where all  our execution is happen in cloud  so we can configure it in yml file
 $env:PLAYWRIGHT_SERVICE_URL="wss://eastus.api.playwright.microsoft.com/playwrightworkspaces/68cec135-967f-41a0-9c72-1be0d04c01c4/browsers"
 steps->
-goto github acc->setting->secret and variables->actions->varables tab->new repo variables-> give name as -PLAYWRIGHT_SERVICE_URL and value as url
-the add below line in yml file
+goto github acc->setting->secret and variables->actions->variables tab->new repo variables-> give name as -PLAYWRIGHT_SERVICE_URL and value as url
+then  add below line in yml file
 env:
    PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
 
    # Then we have to run below cmd in playwright terminal ->
    az role assignment create --assignee (az ad sp list --display-name "github-playwright" --query "[0].appId" -o tsv) --role "Storage Blob Data Contributor" --scope (az storage account show --name pwstrgrrde857 --resource-group RRD --query id -o tsv)
 
-playwright.ymlfile->
+#############playwright.yml file ##########################################
+
+we have configured playwright.yml file in such a way that it automatically integrate with azure cloud and when there is new code 
+is push to github repo then automatically start execution in azure cloud.
 
 name: Playwright Tests
 on:
@@ -129,7 +134,7 @@ jobs:
     - name : Azure Login
       uses: azure/login@v3
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.AZURECREDENTIALS }}
 
     - name: Run Playwright tests
 
