@@ -60,7 +60,7 @@ az role assignment create `
 
 *******Playwrite Github Actions and configure .yml file to start excution in azure cloud when there is code push done in github****************
 
-goto officila wesite - https://playwright.dev/docs/ci-intro
+goto officil wesite - https://playwright.dev/docs/ci-intro
 
 when we integrete github with project workspace then in that ".github" folder is created
 which by default contains the "plywright.yml" file ->
@@ -110,6 +110,14 @@ env:
 
 we have configured playwright.yml file in such a way that it automatically integrate with azure cloud and when there is new code 
 is push to github repo then automatically start execution in azure cloud.
+
+we have configured yml file as follows so it 
+1.set a job
+2. do the node setups
+3. install dependancies
+4. setup  and login to azure cloud 
+5. Run playwright tests with the playwright.service.config file
+6. generate reports
 
 name: Playwright Tests
 on:
