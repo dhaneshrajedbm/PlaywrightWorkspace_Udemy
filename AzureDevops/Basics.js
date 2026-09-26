@@ -1,6 +1,14 @@
-/* Azure Devops
+/* Azure Devops cloud
 
 # Azure Devops claud take care of our Project execution
+It HAs advantage that  we can utilize by defining diff configurations in playwright.yml file
+1. We can make faster test execution by running tests parallely on different workers
+2. It Automatically setups the node configurations, 
+3. downlod dependancies, browsers, 
+4. setup and login to azure cloud
+5. execute test on azure cloud
+6. Generates the final consolidated report
+
 1.create the free account in microsoft azure by providing all info
 2. login to azure acc goto dashboard click on 3 dots -> create resource-> search for 'playwright workspace' -> click
 -> provide all info -> create ->goto azure dashboard-> click 3dots ->az login get started -> 
@@ -131,8 +139,8 @@ on:
 2. do code change and add and commit them
 3. git push origin Dhanesh    : push changes to local branch
 4. Raise the PR
-5. then we can also do setting like without passing all excution the mergre pull request button is not enabled
-6. for that we have to set rules in github accordingly.
+5. then we can also do setting like without passing all excution checks the mergre pull request button is not enabled
+6. for that we have to setrules in github accordingly.
 
 name: Playwright Tests
 on:
