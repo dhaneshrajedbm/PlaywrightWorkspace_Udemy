@@ -1,0 +1,28 @@
+{
+  "name": "udemy_playwrightautomation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "Regression": "npx playwright test",
+    "WebTest": "npx playwright test --grep=WEBTEST",
+    "SmokeTest": "npx playwright test --grep=SMOKE",
+    "APITest": "npx playwright test --grep=APITEST",
+    "WebkitTest": "npx playwright test --config playwright.configCustom.ts",
+    "CucumberTestWithHooks": "cucumber-js features/**/*.feature --require features/step_Definations/stepsWithHooks.js --require features/support/*.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@azure/identity": "^4.13.3",
+    "@azure/playwright": "^1.1.6",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.4.1",
+    "allure-playwright": "^3.12.2",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^13.2.1"
+  }
+}
