@@ -134,13 +134,12 @@ we have configured yml file as follows so it automatically
 3. install dependancies
 4. setup  and login to azure cloud 
 5. Run playwright tests with the playwright.service.config file
-6. generate reports and which we can share with team
-
-// Now we are configure .yml file insuch a way that when new PR is created to merge the 
-// code in remote repo then trigger the cicd pipeline
+6. generate reports
 
 1. in yml file set - 
 on:
+  push:
+    branches: [ main, master ]
   pull_request:
     branches: [ main, master ] 
 
@@ -150,14 +149,8 @@ on:
 4. Raise the PR 
 5.  we can also do setting like without passing all excution checks the mergre pull request button is not enabled
 6. for that we have to setrules in github accordingly.
+parallely
 
-
-name: Playwright Tests
-on:
-  push:
-    branches: [ main, master,septCut ]
-  pull_request:
-    branches: [ main, master ]
 jobs:
   test:
     timeout-minutes: 60
