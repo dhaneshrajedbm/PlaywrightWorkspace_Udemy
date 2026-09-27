@@ -150,13 +150,8 @@ on:
 4. Raise the PR 
 5.  we can also do setting like without passing all excution checks the mergre pull request button is not enabled
 6. for that we have to setrules in github accordingly.
+parallely
 
-name: Playwright Tests
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
 jobs:
   test:
     timeout-minutes: 60
