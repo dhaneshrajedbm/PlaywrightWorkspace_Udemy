@@ -1,8 +1,20 @@
-/* Azure Devops
+/* Azure Devops cloud
 
-# Azure Devops claud take care of our Project execution
+# Azure Devops claud servers take care of our Project execution
+It HAs advantages that  we can utilize by defining diff configurations in playwright.yml 
+file to create cicd pipeline
+
+1. We can make faster test execution by running tests parallely on different workers
+2. It Automatically setups the node configurations, 
+3. It automatically download dependancies, browsers and provides inbuilt playwright 
+   environment in azure server virtual machines, 
+4. setup and login to azure cloud
+5. execute test on azure cloud
+6. Generates the final consolidated report
+
+Steps->
 1.create the free account in microsoft azure by providing all info
-2. login to azure acc goto dashboard clock on 3 dots -> create resource-> search for 'playwright workspace' -> click
+2. login to azure acc goto dashboard click on 3 dots -> create resource-> search for 'playwright workspace' -> click
 -> provide all info -> create ->goto azure dashboard-> click 3dots ->az login get started -> 
 
 follow the steps to integrate our local workspace to to azure workspace as follows
@@ -24,10 +36,11 @@ run following cmds to setup local workspace to azure workspace
  
 4. $env:PLAYWRIGHT_SERVICE_URL="wss://eastus.api.playwright.microsoft.com/playwrightworkspaces/68cec135-967f-41a0-9c72-1be0d04c01c4/browsers"
 
-5  Get the resource ID and store it in a variable
+5  to Get the resource ID and store it in a variable run cmd
 $storageId = az storage account show --name pwstrgrrde857 --resource-group rrd --query id -o tsv
 
 # 6. Run the role assignment using the variable
+
 az role assignment create `
    --assignee "cc6a965c-e80a-4d78-8dc5-b3220faf566f" `
    --role "Storage Blob Data Contributor" `
@@ -35,11 +48,12 @@ az role assignment create `
 
    7.use cmd to cloud execution - npx playwright test --config=playwright.service.config.ts --workers=20
 
-   8. When we run above cmd then execution will happen in azure cloud. we can login to azureaccount 
-   goto tests run we can see all info like logs ,reports so  we can shre the that browser link of report to team 
-   also we 
+   8. When we run above 7th cmd then execution will happen in azure cloud. 
+    By default playwright run tests on parallely on diff workers we have define
+   we can login to azureaccount goto testsrun- we can see all info like logs ,reports so
+     we can shre the that browser link of report to team  
 
-   9. we can also configure above cmd in jenkins and schedule the job/execution.
+   9. we can also configure above cmd in .yml file and schedule the job/execution in azure cloud.
    so we can see all info by login to azure acc.
 
 
@@ -63,10 +77,12 @@ az role assignment create `
 goto officil wesite - https://playwright.dev/docs/ci-intro
 
 when we integrete github with project workspace then in that ".github" folder is created
-which by default contains the "plywright.yml" file ->
+which by default contains the "plywright.yml" file -> in which we can define diff configurations in it to 
+create CICD pipline
 
-on is the event that tell the when to trigger the job . in this case there is mention 'push' means
-when the code push happens to  main/master branch trigget the job means automatically start execution in the azure cloud
+on is the event that tell the when to trigger the job . in this case there is mention 'push' and 'pull req'  means
+when the code push/pull Req happens to  main/master branch then trigger the job means CICD pipeline
+automatically start execution in the azure cloud
 
 job is nothing but the set of actions which we do when trigger job execution 
 
@@ -106,29 +122,47 @@ env:
    # Then we have to run below cmd in playwright terminal ->
    az role assignment create --assignee (az ad sp list --display-name "github-playwright" --query "[0].appId" -o tsv) --role "Storage Blob Data Contributor" --scope (az storage account show --name pwstrgrrde857 --resource-group RRD --query id -o tsv)
 
-#############playwright.yml file ##########################################
+############# CICD Pipeline with playwright.yml file ##########################################
 
 we have configured playwright.yml file in such a way that it automatically integrate with azure cloud and when there is new code 
-is push to github repo then automatically start execution in azure cloud.
+is push or raise pull request to github repo then automatically CICD pipeline triggers and 
+start execution in azure cloud.
 
-we have configured yml file as follows so it 
+we have configured yml file as follows so it automatically
 1.set a job
 2. do the node setups
 3. install dependancies
 4. setup  and login to azure cloud 
 5. Run playwright tests with the playwright.service.config file
-6. generate reports
+6. generate reports and which we can share with team
+
+// Now we are configure .yml file insuch a way that when new PR is created to merge the 
+// code in remote repo then trigger the cicd pipeline
+
+1. in yml file set - 
+on:
+  pull_request:
+    branches: [ main, master ] 
+
+1. git branch Dhanesh  : create new branch
+2. do code change and add and commit them
+3. git push origin Dhanesh    : push changes to local branch
+4. Raise the PR 
+5.  we can also do setting like without passing all excution checks the mergre pull request button is not enabled
+6. for that we have to setrules in github accordingly.
+
 
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master,septCut ]
   pull_request:
     branches: [ main, master ]
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest       // All our code is clone to Ubuntu machine and there 
+                                 //     will happen the exution by running the below cmds 
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -139,17 +173,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name : Azure Login
+    - name : Azure Login                 // Azure setup and login
       uses: azure/login@v3
       with:
         creds: ${{ secrets.AZURECREDENTIALS }}
 
-    - name: Run Playwright tests
-
+    - name: Run Playwright tests      //cmd to run the actal tests.workrrs=4 means  4 tests 
+                                      // are run parallely  on each virtual machines
       env:
       PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
 
-      run: npx playwright test --config=playwright.service.config.ts --workers=4
+      run: npx playwright test --config=playwright.service.config.ts --workers=4  
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
@@ -190,13 +224,14 @@ az role assignment create `
 
 
 
-To get the service account 
+To create the service account 
 
 Subscription id - c411ae04-a2cc-4a2e-8f49-9e6473752c68
 
 az ad sp create-for-rbac --name "github-playwright" --role "Contributor" --scopes "/subscriptions/c411ae04-a2cc-4a2e-8f49-9e6473752c68/resourceGroups/RRD" --json-auth
 
 
+after create service acc run below cmd
 
 az role assignment create \
 --assignee "$(az ad sp list --display-name 'github-playwright' --query '[0].appId' -o tsv)" \
