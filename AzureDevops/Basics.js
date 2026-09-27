@@ -1,7 +1,8 @@
 /* Azure Devops cloud
 
 # Azure Devops claud take care of our Project execution
-It HAs advantage that  we can utilize by defining diff configurations in playwright.yml file
+It HAs advantages that  we can utilize by defining diff configurations in playwright.yml 
+file to create cicd pipeline
 1. We can make faster test execution by running tests parallely on different workers
 2. It Automatically setups the node configurations, 
 3. downlod dependancies, browsers, 
@@ -44,9 +45,10 @@ az role assignment create `
 
    7.use cmd to cloud execution - npx playwright test --config=playwright.service.config.ts --workers=20
 
-   8. When we run above cmd then execution will happen in azure cloud. we can login to azureaccount 
-   goto tests run we can see all info like logs ,reports so  we can shre the that browser link of report to team 
-   also we 
+   8. When we run above cmd then execution will happen in azure cloud. 
+    By default playwright run tests on parallely on diff workers we have define
+   we can login to azureaccount goto testsrun- we can see all info like logs ,reports so
+     we can shre the that browser link of report to team  
 
    9. we can also configure above cmd in .yml file and schedule the job/execution in azure cloud.
    so we can see all info by login to azure acc.
@@ -72,10 +74,12 @@ az role assignment create `
 goto officil wesite - https://playwright.dev/docs/ci-intro
 
 when we integrete github with project workspace then in that ".github" folder is created
-which by default contains the "plywright.yml" file ->
+which by default contains the "plywright.yml" file -> in which we can define diff configurations in it to 
+create CICD pipline
 
-on is the event that tell the when to trigger the job . in this case there is mention 'push' means
-when the code push happens to  main/master branch trigget the job means automatically start execution in the azure cloud
+on is the event that tell the when to trigger the job . in this case there is mention 'push' and 'pull req'  means
+when the code push/pull Req happens to  main/master branch then trigger the job means CICD pipeline
+automatically start execution in the azure cloud
 
 job is nothing but the set of actions which we do when trigger job execution 
 
@@ -118,9 +122,10 @@ env:
 ############# CICD Pipeline with playwright.yml file ##########################################
 
 we have configured playwright.yml file in such a way that it automatically integrate with azure cloud and when there is new code 
-is push to github repo then automatically start execution in azure cloud.
+is push or raise pull request to github repo then automatically CICD pipeline triggers and 
+start execution in azure cloud.
 
-we have configured yml file as follows so it 
+we have configured yml file as follows so it automatically
 1.set a job
 2. do the node setups
 3. install dependancies
@@ -128,7 +133,8 @@ we have configured yml file as follows so it
 5. Run playwright tests with the playwright.service.config file
 6. generate reports and which we can share with team
 
-// Now we are configure .yml file insuch a way that when new PR is created to merge the code in remote repo then trigger the cicd pipeline
+// Now we are configure .yml file insuch a way that when new PR is created to merge the 
+// code in remote repo then trigger the cicd pipeline
 
 1. in yml file set - 
 on:
@@ -138,8 +144,8 @@ on:
 1. git branch Dhanesh  : create new branch
 2. do code change and add and commit them
 3. git push origin Dhanesh    : push changes to local branch
-4. Raise the PR
-5. then we can also do setting like without passing all excution checks the mergre pull request button is not enabled
+4. Raise the PR 
+5.  we can also do setting like without passing all excution checks the mergre pull request button is not enabled
 6. for that we have to setrules in github accordingly.
 
 name: Playwright Tests
