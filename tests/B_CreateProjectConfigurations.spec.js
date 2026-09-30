@@ -41,12 +41,13 @@ const {test,expect} = require ('playwright/test')
 
 
 
- ************** Parralel Execution of tests in spec file ***************
+ ************** Parralel Execution of tests in spec file-> extend test behaviour ***************
 
  we know the tests of spec file are run sequentially on respectve workerr
- We can also run the tests parallely if spec file contains multiple tests
+ We can also run the tests parallely if spec file contains multiple tests by extending test behaviour
 
  just we have to describe and configure the mode of execution of  that spec file tests like in file itself ---> 
+ for reff -> tests\C_WebElementsHandlingAndAsssertions.spec.js
 
                  test.describe.configure ( {mode : 'parallel'} );
 
@@ -67,6 +68,7 @@ const {test,expect} = require ('playwright/test')
 
  we make tagging of test cases simply just adding fo eg - "@Web" ,"@smoke" in the test title
  and use cmd to execute tests with specific tags
+ for reff -> tests\C_WebElementsHandlingAndAsssertions.spec.js
 
  npx playwright test --grep=smoke
 
@@ -83,7 +85,7 @@ const {test,expect} = require ('playwright/test')
  *********** Create custom scripts to trigger the tests execution from package.json *****************
 
  we can create custom script in package.json in script option like as below so we no need to remember the cmd every time
- just run the cmd -> "npm run APITest"   so cmd under APITest script will run
+ just run the cmd -> "npm run APITest"   so cmd under APITest script will run the scenarios withe tag = APITest
  we can also configure these scrpts in jenkins to run the tests
 
   "scripts": {

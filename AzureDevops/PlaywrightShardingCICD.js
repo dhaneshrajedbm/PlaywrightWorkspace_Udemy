@@ -1,6 +1,6 @@
 /* *********Playwright Sharding*********
 
-Playwright By default do the execution parallely on the same Machine fof faster execution
+Playwright By default do the execution parallely on the same Machine for faster execution
 
 We can even make excution faster By splitting tests into diff parts and execute them on 
 multiple github virtual machines simultaniously. this mode of op'n is called as Sharding.
@@ -8,7 +8,7 @@ Each shard act as separate job and run independantly.
 so it speed up execution by utilizing available CPU cores
 
 Suppose there are 20 test cases and we are configured 4 Shards  and 5 workers then test cases
- divided into 4  and  5 test cases run on each of  4 virtual machines/shards simultaniously
+ divided into 4 shards so each 5 test cases run on each of  4 virtual machines/shards simultaniously
  each shard will do separate job
 worker=5 means - 5 tests are run parallely on each virtual machine
 
@@ -18,14 +18,14 @@ Difference bet Azure cloud and gihub sharding
  common thing is- both will do execution  on different virtual machines and parallely on workers
 suppose thetre are 4 vm's then each vm has its own execution report
 
-1. In this case Azure cloud will  collect all the report from each vm and provide consolidated singel report
+1. In this case Azure cloud will  collect all the report from each vm and provide consolidated single report
    for this we no need to write extra commands or jobs in .Yml file
 2. But for Github Sharding - we need to write extra cmds or job to consolidate the reports
 
-3. Aure cloud automatically download dependancies, browsers and provides inbuilt playwright 
+3. Azure cloud automatically download dependancies, browsers and provides inbuilt playwright 
    environment in azure server virtual machines. no need to write the cmds in .yml file
  
-4. But for Github sharding we have to write exrtra cmds for download browsers
+4. But for Github sharding we have to write extra cmds for download browsers
 
 ******** Playwrite Sharding.yml file ****************
 
@@ -58,12 +58,12 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Install dependencies       // here it install all package.json dependancies and browsers//
+      - name: Install dependencies              // here it install all package.json dependancies and browsers//
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
  
-      - name: Run Playwright tests (shard)   // Cmd to run the tests on shards
+      - name: Run Playwright tests (shard)            // Cmd to divide andrun the tests on shards
         run: >
           npx playwright test --config=playwright.config.js --workers=4
           --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}

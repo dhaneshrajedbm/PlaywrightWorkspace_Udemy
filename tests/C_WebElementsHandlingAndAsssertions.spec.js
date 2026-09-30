@@ -2,6 +2,7 @@ import {test , expect} from '@playwright/test';
 
 //test.describe.configure( {mode: 'parallel'});   // for parallel tests execution
 
+
 test.describe.configure( {mode: 'serial'});   // for interDependancy of tests execution
 
 test(" @WEBTEST Static Dropdown Handling" , async({page})=>{

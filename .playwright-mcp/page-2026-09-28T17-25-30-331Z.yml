@@ -1,0 +1,57 @@
+- generic [ref=e235]:
+  - navigation [ref=e237]:
+    - generic [ref=e239]:
+      - link "Automation Automation Practice":
+        - /url: ""
+        - generic [ref=e240] [cursor=pointer]:
+          - heading "Automation" [level=3] [ref=e241]
+          - paragraph [ref=e242]: Automation Practice
+    - text: 
+    - link "🎯 I'll help you prepare for your next QA job — Explore the QA Career Accelerator." [ref=e243] [cursor=pointer]:
+      - /url: https://rahulshettyacademy.com/qa-career-accelerator-job-ready
+    - list [ref=e244]:
+      - listitem [ref=e245] [cursor=pointer]:
+        - button " HOME" [ref=e246]:
+          - generic [ref=e247]: 
+          - text: HOME
+      - listitem
+      - listitem [ref=e248] [cursor=pointer]:
+        - button " ORDERS" [ref=e249]:
+          - generic [ref=e250]: 
+          - text: ORDERS
+      - listitem [ref=e251] [cursor=pointer]:
+        - button " Cart 1" [ref=e252]:
+          - generic [ref=e253]: 
+          - text: Cart
+          - generic [ref=e254]: "1"
+      - listitem [ref=e255] [cursor=pointer]:
+        - button "Sign Out" [ref=e256]:
+          - generic [aria-hidden] [ref=e257]: 
+          - text: Sign Out
+  - generic [ref=e258]:
+    - generic [ref=e259]:
+      - heading "My Cart" [level=1] [ref=e260]
+      - button "Continue Shopping❯" [ref=e261] [cursor=pointer]
+    - list [ref=e263]:
+      - listitem [ref=e264] [cursor=pointer]:
+        - generic [ref=e265]:
+          - generic [ref=e266]:
+            - paragraph [ref=e267]: "#6960eac0c941646b7a8b3e68"
+            - heading "ZARA COAT 3" [level=3] [ref=e268]
+            - paragraph [ref=e269]: MRP $ 11500
+            - paragraph [ref=e270]: In Stock
+          - paragraph [ref=e272]: $ 11500
+          - generic [ref=e273]:
+            - button "Buy Now❯" [ref=e274]
+            - button "❯" [ref=e275]:
+              - generic [aria-hidden] [ref=e276]: 
+              - text: ❯
+    - list [ref=e278]:
+      - listitem [ref=e279]:
+        - generic [ref=e280]: Subtotal
+        - generic [ref=e281]: $11500
+      - listitem [ref=e282]:
+        - generic [ref=e283]: Total
+        - generic [ref=e284]: $11500
+      - listitem [ref=e285]:
+        - button "Checkout❯" [ref=e286] [cursor=pointer]

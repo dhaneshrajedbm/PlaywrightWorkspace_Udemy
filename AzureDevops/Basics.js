@@ -154,8 +154,8 @@ on:
 
 name: Playwright Tests
 on:
-  push:
-    branches: [ main, master,septCut ]
+  push:                                  //  On specify the event ,when we push the code or Raise PR to 
+    branches: [ main, master,septCut ]   // github repo then trigger the job to run CICD Pipeline
   pull_request:
     branches: [ main, master ]
 jobs:
@@ -178,7 +178,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURECREDENTIALS }}
 
-    - name: Run Playwright tests      //cmd to run the actal tests.workrrs=4 means  4 tests 
+    - name: Run Playwright tests      //cmd to run the actual tests. workrrs=4 means  4 tests 
                                       // are run parallely  on each virtual machines
       env:
       PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}

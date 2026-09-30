@@ -1,3 +1,19 @@
+/*
+1. create project and open it in vs code
+
+ | Step               | Command / Action                       |
+ |--------------------|----------------------------------------|
+ | Init Project        | npm init -y / npm init playwright  = This creates a package.json file |
+ | Install Playwright  | npm install -D @playwright/test@latest  OR npm init playwright@latest |
+ | Install Browsers    | npx playwright install  / npx playwright install chromium firefox webkit               |
+ | Create Test         | tests/example.spec.js                 |
+ | Run Test            | npx playwright test                    |
+ | View Report         | npx playwright show-report             |
+ | Codegen (optional)  | npx playwright codegen <url>   
+*/
+
+
+
 const {test , expect} = require('@playwright/test');
 
 // or
