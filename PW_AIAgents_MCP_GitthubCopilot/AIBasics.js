@@ -68,7 +68,7 @@ created and one seed.spec.js file created in tests folder
 
 ****************PLayWright CLI **********************
 
-It is same as mcp servers but for this we have to install the claud software 
+It is same as mcp servers but for this we have to install the claud code Ai agent  
 
 Diff BEtween Playwright MCP and Playwright CLI
 
